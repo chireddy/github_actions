@@ -1,8 +1,7 @@
 on:
-  - push
-  #schedule:
-     
-     #- cron:  '30 5,17 * * *'
+  #- push
+    schedule:
+      - cron:  '*/5 * * * *'
 
 name: Cloud Custodian Policy
 
@@ -27,11 +26,14 @@ jobs:
          python3 -m venv custodian
          source custodian/bin/activate
          sudo pip install c7n
-    - name: Running policies 
-      run: |
-         custodian validate root-user-login-detected.yml
-         custodian run --dryrun root-user-login-detected.yml -s out
-         custodian run --output-dir s3://test-cpr root-user-login-detected.yml
+         
+    - name: Validating Custodian policy
+      run: custodian validate aws-s3-bucket-encryption-policy-absent.yml
+    - name: Policy Dry Run
+      run: custodian run --dryrun aws-s3-bucket-encryption-policy-absent.yml -s out
+    - name: Run the Policy and save the outputs to S3 Bucket
+      run: custodian run --output-dir s3://test-cpr root-user-login-detected.yml
+         
         
     
     
