@@ -28,11 +28,11 @@ jobs:
          sudo pip install c7n
          
     - name: Validating Custodian policy
-      run: custodian validate aws-s3-bucket-encryption-policy-absent.yml
+      run: custodian validate s3-bucket-encryption-policy-absent.yml
     - name: Policy Dry Run
-      run: custodian run --dryrun aws-s3-bucket-encryption-policy-absent.yml -s out
+      run: custodian run --dryrun s3-bucket-encryption-policy-absent.yml -s out
     - name: Run the Policy and save the outputs to S3 Bucket
-      run: custodian run --output-dir s3://test-cpr root-user-login-detected.yml
+      run: custodian run --output-dir s3://test-cpr s3-bucket-encryption-policy-absent.yml
          
         
     
