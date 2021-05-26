@@ -26,7 +26,7 @@ jobs:
     - run: |
          python3 -m venv custodian
          source custodian/bin/activate
-         pip install c7n
+         sudo pip install c7n
          
          custodian validate root-user-login-detected.yml
          custodian run --dryrun root-user-login-detected.yml -s out
