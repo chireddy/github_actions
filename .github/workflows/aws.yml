@@ -22,14 +22,16 @@ jobs:
         aws-secret-access-key: ${{ secrets.AWS_SECRET_KEY }}
         aws-region: us-east-1
     
-    
-    - run: |
+    - name: Setting up Custodian
+      run: |
          python3 -m venv custodian
          source custodian/bin/activate
          sudo pip install c7n
-         
+    - name: Running policies 
+      run: |
          custodian validate root-user-login-detected.yml
          custodian run --dryrun root-user-login-detected.yml -s out
+         custodian run --output-dir s3://test-cpr root-user-login-detected.yml
         
     
     
