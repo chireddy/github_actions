@@ -1,0 +1,22 @@
+policies:
+  - name: ec2-instance
+    mode:
+      type: periodic
+      schedule: rate(10 minutes)
+      role: arn:aws:iam::267498580659:role/CloudCustodianRole
+      execution-options:
+        metrics_enabled: false
+        output_dir: s3://test-cpr
+
+    resource: ec2
+    description: |
+      Schedule a resource that does not meet compliance policies
+      to be stopped
+    filters:
+      - type: value
+        key: "InstanceType"
+        op: in
+        value:
+          - "t2.micro"
+    actions:
+      - stop
