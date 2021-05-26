@@ -1,3 +1,4 @@
+name: Cloud Custodian Policy with SCHEDULE Action
 on:
   schedule:
     - cron: "*/5 * * * *"
