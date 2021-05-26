@@ -1,4 +1,4 @@
-name: Cloud Custodian Policy
+name: Cloud Custodian Policy with PUSH Action
 
 on:
   - push
