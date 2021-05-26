@@ -1,16 +1,6 @@
-#on:
-#  - push
-#  schedule:
-#    - cron: '5 * * * *'
-
-
-
-
-name: Cloud Custodian Policy
-
 on:
   schedule:
-    - cron: '*/5 * * * *'
+    - cron: "*/5 * * * *"
 
 jobs:
   deploy:
@@ -40,9 +30,3 @@ jobs:
       run: custodian run --dryrun s3-bucket-encryption-policy-absent.yml -s out
     - name: Run the Policy and save the outputs to S3 Bucket
       run: custodian run --output-dir s3://test-cpr s3-bucket-encryption-policy-absent.yml
-         
-        
-    
-    
-   
-
