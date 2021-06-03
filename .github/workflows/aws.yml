@@ -1,5 +1,7 @@
 name: Cloud Custodian Policy with SCHEDULE Action
-on:
+
+on: 
+  workflow_dispatch:
 #  schedule:
 #    - cron: "*/5 * * * *"
 
