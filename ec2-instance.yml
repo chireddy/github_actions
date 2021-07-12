@@ -10,7 +10,7 @@ policies:
 
     resource: ec2
     description: |
-      Schedule a resource that does not meet compliance policies
+      Schedule a resource that does not meet compliance policies.
       to be stopped
     filters:
       - type: value
