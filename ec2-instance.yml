@@ -20,3 +20,4 @@ policies:
           - "t2.micro"
     actions:
       - stop
+#Policy ends
