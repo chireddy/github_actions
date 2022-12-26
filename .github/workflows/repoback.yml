@@ -10,9 +10,9 @@ jobs:
     - name: Create bundle 
       run: git clone --mirror https://github.com/chireddy/chireddy.git chireddy.git && cd chireddy.git && git bundle create chireddy.bundle --all
     - name: Create a backup directory and move the bundle
-      run: sudo mkdir chireddy_backup && cd chireddy.git && sudo cp chireddy.bundle chireddy_backup
+      run: sudo mkdir chireddy_backup && /home/runner/work/chireddy/chireddy/chireddy.git/chireddy.bundle && /home/runner/work/chireddy/chireddy/chireddy.git/chireddy_backup/chireddy.bundle 
     - name: show all
       run: cd chireddy.git && ls -la && pwd
       
-    - name: Verify the Backup folder && pwd
-      run: cd chireddy_backup && ls -la
+    - name: Verify the Backup folder 
+      run: cd chireddy.git/chireddy_backup && ls -la && pwd
