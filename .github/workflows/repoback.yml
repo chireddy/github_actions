@@ -11,7 +11,7 @@ jobs:
       uses: actions/checkout@v2
       
     - name: Create bundle 
-      run: git clone --mirror git@github.com:chireddy/chireddy.git chireddy.git && cd chireddy.git && git bundle create chireddy.bundle --all
+      run: git clone --mirror https://github.com/chireddy/chireddy.git chireddy.git && cd chireddy.git && git bundle create chireddy.bundle --all
       
     
     - name: show all
