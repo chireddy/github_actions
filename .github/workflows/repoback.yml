@@ -7,12 +7,8 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-    - name: Checkout
-      uses: actions/checkout@v2
-      
     - name: Create bundle 
       run: git clone --mirror https://github.com/chireddy/chireddy.git chireddy.git && cd chireddy.git && git bundle create chireddy.bundle --all
       
-    
     - name: show all
       run: cd chireddy.git && ls -la
