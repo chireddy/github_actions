@@ -30,4 +30,4 @@ jobs:
     - name: Policy Dry Run
       run: custodian run --dryrun ec2-instance.yml -s out
     - name: Run the Policy and save the outputs to S3 Bucket
-      run: custodian run --output-dir s3://test-cpr ec2-instance.yml
+      run: custodian run --output-dir s3://cloudcustodian-cpr ec2-instance.yml
