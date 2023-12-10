@@ -6,7 +6,7 @@ policies:
       role: arn:aws:iam::219618764865:role/CloudCustodianRole
       execution-options:
         metrics_enabled: false
-        output_dir: s3://test-cpr
+        output_dir: s3://cloudcustodian-cpr
 
     resource: ec2
     description: |
