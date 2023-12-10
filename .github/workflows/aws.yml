@@ -32,4 +32,4 @@ jobs:
     - name: Policy Dry Run
       run: custodian run --dryrun s3-bucket-encryption-policy-absent.yml -s out
     - name: Run the Policy and save the outputs to S3 Bucket
-      run: custodian run --output-dir s3://test-cpr s3-bucket-encryption-policy-absent.yml
+      run: custodian run --output-dir s3://cloudcustodian-cpr s3-bucket-encryption-policy-absent.yml
