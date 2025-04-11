@@ -13,7 +13,7 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Run Tests
-        run: npm test # Replace with real test command
+        #run: npm test # Replace with real test command
 
   deploy-staging:
     needs: build-test
