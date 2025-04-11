@@ -1,6 +1,7 @@
-name: CI/CD Pipeline with Rework Pause
+name: CI/CD with Rework Hold
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - main
@@ -13,15 +14,14 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Run Tests
-        run: echo "Running tests"
-        #run: npm test # Replace with real test command
+        run: echo "✅ Running tests..."
 
   deploy-staging:
     needs: build-test
     runs-on: ubuntu-latest
     steps:
       - name: Deploy to Staging
-        run: echo "Deploying to Staging..." # Replace with actual deploy command
+        run: echo "✅ Deploying to Staging..."
 
   approval:
     needs: deploy-staging
@@ -29,32 +29,26 @@ jobs:
     environment:
       name: production
     steps:
-      - name: Wait for Manual Approval
-        run: echo "Waiting for manual approval in GitHub UI"
+      - name: Await Manual Approval
+        run: echo "✅ Manual approval granted"
 
-  check-rework:
+  pause-check:
     needs: approval
     runs-on: ubuntu-latest
-    outputs:
-      proceed: ${{ steps.check.outputs.proceed }}
     steps:
-      - name: Check if rework is completed
-        id: check
+      - name: Check Rework Status
         run: |
-          echo "🔎 Checking REWORK_DONE flag: ${{ vars.REWORK_DONE }}"
-          if [[ "${{ vars.REWORK_DONE }}" == "true" ]]; then
-            echo "✅ Rework complete. Proceeding with deployment."
-            echo "proceed=true" >> $GITHUB_OUTPUT
-          else
-            echo "❌ Rework not completed. Canceling workflow."
-            echo "proceed=false" >> $GITHUB_OUTPUT
+          echo "🔎 Rework status: ${{ vars.REWORK_DONE }}"
+          if [[ "${{ vars.REWORK_DONE }}" != "true" ]]; then
+            echo "🛑 Rework not completed. Please set REWORK_DONE to 'true' and re-run the workflow."
             exit 1
           fi
+        shell: bash
 
   deploy-production:
-    needs: check-rework
-    if: needs.check-rework.outputs.proceed == 'true'
+    needs: pause-check
+    if: success()
     runs-on: ubuntu-latest
     steps:
       - name: Deploy to Production
-        run: echo "🚀 Deploying to Production..." # Replace with actual deploy command
+        run: echo "🚀 Deploying to Production"
