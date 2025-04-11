@@ -23,15 +23,33 @@ jobs:
       - name: Deploy to Staging
         run: echo "✅ Deploying to Staging..."
 
+  # approval:
+  #   needs: deploy-staging
+  #   runs-on: ubuntu-latest
+  #   environment:
+  #     name: production
+  #   steps:
+  #     - name: Await Manual Approval
+  #       run: echo "✅ Manual approval granted"
+
+
   approval:
     needs: deploy-staging
     runs-on: ubuntu-latest
     environment:
-      name: production
+        name: production
+        # Add reviewers if needed
+    env:
+      REWORK_DONE: ${{ vars.REWORK_DONE }}
     steps:
-      - name: Await Manual Approval
-        run: echo "✅ Manual approval granted"
-
+      - name: Check Rework Status
+        run: |
+          echo "🔍 Rework status: $REWORK_DONE"
+          if [[ "$REWORK_DONE" != "true" ]]; then
+            echo "🛑 Rework not completed. Please set REWORK_DONE to 'true' and re-run the workflow."
+            exit 1
+          fi
+        
   pause-check:
     needs: approval
     runs-on: ubuntu-latest
