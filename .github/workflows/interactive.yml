@@ -53,11 +53,13 @@ jobs:
   pause-check:
     needs: approval
     runs-on: ubuntu-latest
+    env:
+      REWORK_DONE: ${{ vars.REWORK_DONE }}
     steps:
       - name: Check Rework Status
         run: |
-          echo "🔎 Rework status: ${{ vars.REWORK_DONE }}"
-          if [[ "${{ vars.REWORK_DONE }}" != "true" ]]; then
+          echo "🔍 Rework status: $REWORK_DONE"
+          if [[ "$REWORK_DONE" != "true" ]]; then
             echo "🛑 Rework not completed. Please set REWORK_DONE to 'true' and re-run the workflow."
             exit 1
           fi
